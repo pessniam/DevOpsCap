@@ -17,8 +17,8 @@ pipeline {
         }
         stage('Build Docker Images'){
             steps {
-                sh "docker build -f ./blueapp/Dockerfile -t pessniam/blueapp ."
-                sh "docker build -f ./greenapp/Dockerfile -t pessniam/greenapp ."
+                sh "docker build -f blueapp/Dockerfile -t pessniam/blueapp ."
+                sh "docker build -f greenapp/Dockerfile -t pessniam/greenapp ."
             
             }
         
