@@ -38,7 +38,7 @@ pipeline {
         stage('Setup Context for Kubectl'){
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-creds'){
-                 sh "kubectl config set-context arn:aws:iam::568283627415:role/DevOpsCap-Cluster-EksServiceRole-167ODLU7K6GOL"
+                 sh "kubectl config set-context arn:aws:eks:us-west-2:568283627415:cluster/EksCluster-hVyio5Aa89V8"
                 }
             }
         
