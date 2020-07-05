@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Push Docker Images to DockerHub'){
             steps {
-              withCredentials([[$class: 'UsernamePasswordMultiBiding', credentailsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
+              withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]){
                sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                sh "docker push pessniam/blueapp"
                sh "docker push pessniam/greenapp"
