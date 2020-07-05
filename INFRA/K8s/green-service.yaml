@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blue-green-loadbalancer
+  labels:
+    app: blue-green-loadbalancer
+spec:
+  ports:
+    - port: 8000
+      targetPort: 80
+  selector:
+    app: green
+    type: LoadBalancer

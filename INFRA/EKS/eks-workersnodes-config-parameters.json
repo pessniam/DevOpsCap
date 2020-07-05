@@ -1,0 +1,26 @@
+[
+    {
+    "ParameterKey": "ClusterName",
+    "ParameterValue": "EksCluster-PGQg0oHupv38"
+    },
+    {
+        "ParameterKey": "StackName",
+        "ParameterValue": "DevOpsCap"
+    },
+    {
+        "ParameterKey": "BootstrapArguments",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "NodeGroupName",
+        "ParameterValue": "eks-workers"
+    },
+    {
+        "ParameterKey": "NodeImageId",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "NodeInstanceType",
+        "ParameterValue": "t2.micro"
+    }
+]

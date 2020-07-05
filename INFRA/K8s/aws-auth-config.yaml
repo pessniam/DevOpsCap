@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: DevOpsCap-AWSAuth
+  namespace: default
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::568283627415:role/DevOpsCap-Nodes-NodeInstanceRole-8YINDAJP7CEW
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
