@@ -1,5 +1,9 @@
 pipeline {
 
+    environment {
+        dockerHubCredentials = 'DockerHub'
+    }
+
     agent any
     stages {
         stage('Lint the HTML') {
@@ -13,10 +17,8 @@ pipeline {
         }
         stage('Build Docker Images'){
             steps {
-              withCredentails([[$class: 'UsernamePasswordMultiBiding', credentailsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
                 sh "docker build -f ./blueapp/Dockerfile -t pessniam/blueapp ."
                 sh "docker build -f ./greenapp/Dockerfile -t pessniam/greenapp ."
-              }
             
             }
         
