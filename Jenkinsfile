@@ -39,6 +39,7 @@ pipeline {
             steps {
                 withAWS(region:'us-west-2', credentials:'aws-creds'){
                  sh "kubectl config set-context arn:aws:iam::568283627415:role/DevOpsCap-Cluster-EksServiceRole-167ODLU7K6GOL"
+                 sh "kubectl apply -f ./INFRA/K8s/blue-controller.yaml"
                 }
             }
         
