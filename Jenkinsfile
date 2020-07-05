@@ -35,7 +35,7 @@ pipeline {
         stage('Setup Context for Kubectl'){
             steps {
                 withAWS(region:'us-west-2', credentails:'aws-creds'){
-                 sh "kubectl config set-context arn:aws:eks:us-west-2:321382273430:cluster/EKSCluster-9fVO5lycvYR4"
+                 sh "kubectl config set-context arn:aws:iam::568283627415:role/DevOpsCap-Cluster-EksServiceRole-167ODLU7K6GOL"
                 }
             }
         
@@ -43,7 +43,7 @@ pipeline {
         
         stage('Deploy to Blue') {
 			steps {
-				withAWS(region:'us-west-2', credentials:'tina-eks') {
+				withAWS(region:'us-west-2', credentials:'aws-creds') {
 					sh '''
 						kubectl apply -f ./INFRA/K8s/blue-controller.yaml
 					'''
@@ -53,7 +53,7 @@ pipeline {
 
 		stage('Deploy To Green') {
 			steps {
-				withAWS(region:'us-west-2', credentials:'tina-eks') {
+				withAWS(region:'us-west-2', credentials:'aws-creds') {
 					sh '''
 						kubectl apply -f ./INFRA/K8s/green-controller.yaml
 					'''
@@ -63,7 +63,7 @@ pipeline {
 
 		stage('Create Service and Redirect to Blue') {
 			steps {
-				withAWS(region:'us-west-2', credentials:'tina-eks') {
+				withAWS(region:'us-west-2', credentials:'aws-creds') {
 					sh '''
 						kubectl apply -f ./INFRA/K8s/blue-service.yaml
 					'''
@@ -79,7 +79,7 @@ pipeline {
 
 		stage('Create Service and Redirect to Green') {
 			steps {
-				withAWS(region:'us-west-2', credentials:'tina-eks') {
+				withAWS(region:'us-west-2', credentials:'aws-creds') {
 					sh '''
 						kubectl apply -f ./INFRA/K8s/green-service.yaml
 					'''

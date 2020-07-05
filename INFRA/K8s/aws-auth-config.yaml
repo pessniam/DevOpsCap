@@ -5,7 +5,7 @@ metadata:
   namespace: default
 data:
   mapRoles: |
-    - rolearn: arn:aws:iam::568283627415:role/DevOpsCap-Nodes-NodeInstanceRole-8YINDAJP7CEW
+    - rolearn: arn:aws:iam::568283627415:role/DevOpsCap-Node-NodeInstanceRole-HMPP7U7N40IM
       username: system:node:{{EC2PrivateDNSName}}
       groups:
         - system:bootstrappers
