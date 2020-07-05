@@ -47,9 +47,7 @@ pipeline {
         stage('Deploy to Blue') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws-creds') {
-					sh '''
-						kubectl apply -f ./INFRA/K8s/blue-controller.yaml
-					'''
+					sh 'make deploy-blue'
 				}
 			}
 		}

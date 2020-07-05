@@ -15,7 +15,7 @@ spec:
   spec:
    containers:
     - name: green
-      image: pessniam/DevOpsCap
+      image: pessniam/greenapp
       ports:
       - name: "https-server"
         containerPort: 80
