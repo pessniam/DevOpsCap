@@ -5,9 +5,10 @@ metadata:
   labels:
     app: blue-green-loadbalancer
 spec:
+  type: LoadBalancer
   ports:
-    - port: 8000
+    - port: 80
       targetPort: 80
+      nodePort: 31910
   selector:
     app: green
-    type: LoadBalancer
