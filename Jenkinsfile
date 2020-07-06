@@ -43,6 +43,20 @@ pipeline {
 				}
 			}
 		}
+		
+		stage('Create Service and Redirect to Blue') {
+			steps {
+				withAWS(region:'us-west-2', credentials:'aws-creds') {
+					sh 'make service-redirect'
+				}
+			}
+		}
+		
+		stage('CTO Approval') {
+            steps {
+                input "Ready to redirect traffic to green?"
+            }
+        }
 
 		stage('Deploy To Green') {
 			steps {
@@ -53,21 +67,7 @@ pipeline {
 				}
 			}
 		}
-
-		stage('Create Service and Redirect to Blue') {
-			steps {
-				withAWS(region:'us-west-2', credentials:'aws-creds') {
-					sh 'make service-redirect'
-				}
-			}
-		}
-
-		stage('CTO Approval') {
-            steps {
-                input "Ready to redirect traffic to green?"
-            }
-        }
-
+		
 		stage('Create Service and Redirect to Green') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws-creds') {
