@@ -104,7 +104,19 @@ Resources:
       VpcId:
         Fn::ImportValue: !Sub ${StackName}-VPCID
         
-
+  KubernetesServiceNodeportSecurityGroupIngress:
+    Type: "AWS::EC2::SecurityGroupIngress"
+    DependsOn: NodeSecurityGroup
+    Properties:
+      Description: Allow nodes to receive communication from kubernetes service nodeport
+      FromPort: 30000
+      GroupId: !Ref NodeSecurityGroup
+      IpProtocol: tcp
+      SourceSecurityGroupId:
+        Fn::ImportValue:
+          !Sub "${StackName}-CLUSTER-SG"
+      ToPort: 39999
+      
   NodeSecurityGroupIngress:
     Type: "AWS::EC2::SecurityGroupIngress"
     DependsOn: NodeSecurityGroup

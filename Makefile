@@ -28,6 +28,9 @@ deploy-green:
 	kubectl apply -f ./INFRA/K8s/green-service.yaml
 	kubectl get pods
 	kubectl get service
+	
+blueToGreen:
+	kubectl apply -f ./INFRA/K8s/blue-to-green-service.yaml
 
 	
-all: lint docker-build docker-push kubectl-config deploy-blue deploy-green
+all: lint docker-build docker-push kubectl-config deploy-blue deploy-green blueToGreen

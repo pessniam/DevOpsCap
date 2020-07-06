@@ -57,10 +57,17 @@ pipeline {
 		
 		stage('CTO Approval') {
             steps {
-                input "Ready to redirect traffic to green/TestEnv for verification before updating Blue/Production?"
+                input "Ready to redirect Blue/Production service traffic to Green app/pods?"
             }
         }
 
+        stage('Updating Production') {
+			steps {
+				withAWS(region:'us-west-2', credentials:'aws-creds') {
+					sh 'make blueToGreen'
+				}
+			}
+		}
 		
 		
     
