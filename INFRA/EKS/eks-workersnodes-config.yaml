@@ -19,17 +19,17 @@ Parameters:
 
   NodeAutoScalingGroupDesiredCapacity:
     Type: Number
-    Default: 3
+    Default: 4
     Description: Desired capacity of Node Group ASG.
 
   NodeAutoScalingGroupMaxSize:
     Type: Number
-    Default: 3
+    Default: 6
     Description: Maximum size of Node Group ASG. Set to at least 1 greater than NodeAutoScalingGroupDesiredCapacity.
 
   NodeAutoScalingGroupMinSize:
     Type: Number
-    Default: 1
+    Default: 2
     Description: Minimum size of Node Group ASG.
 
   NodeGroupName:
@@ -104,18 +104,6 @@ Resources:
       VpcId:
         Fn::ImportValue: !Sub ${StackName}-VPCID
         
-  KubernetesServiceNodeportSecurityGroupIngress:
-    Type: "AWS::EC2::SecurityGroupIngress"
-    DependsOn: NodeSecurityGroup
-    Properties:
-      Description: Allow nodes to receive communication from kubernetes service nodeport
-      FromPort: 31910
-      GroupId: !Ref NodeSecurityGroup
-      IpProtocol: tcp
-      SourceSecurityGroupId:
-        Fn::ImportValue:
-          !Sub "${StackName}-CLUSTER-SG"
-      ToPort: 31910
 
   NodeSecurityGroupIngress:
     Type: "AWS::EC2::SecurityGroupIngress"
