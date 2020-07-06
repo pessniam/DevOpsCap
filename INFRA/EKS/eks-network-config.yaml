@@ -8,27 +8,27 @@ Parameters:
 
   VpcCIDR:
     Type: String
-    Default: 192.168.0.0/16
+    Default: 10.0.0.0/16
     Description: The CIDR range for the VPC.
 
   PublicSubnet1CIDR:
     Type: String
-    Default: 192.168.0.0/24
+    Default: 10.0.1.0/24
     Description: CidrBlock for public subnet.
 
   PublicSubnet2CIDR:
     Type: String
-    Default: 192.168.1.0/24
+    Default: 10.0.10.0/24
     Description: CidrBlock for public subnet.
 
   PrivateSubnet1CIDR:
     Type: String
-    Default: 192.168.2.0/24
+    Default: 10.0.2.0/24
     Description: CidrBlock for private subnet.
 
   PrivateSubnet2CIDR:
     Type: String
-    Default: 192.168.3.0/24
+    Default: 10.0.11.0/24
     Description: CidrBlock for private subnet.
 
 Resources:
