@@ -3,12 +3,11 @@ kind: Service
 metadata:
   name: blue-loadbalancer
   labels:
-    app: blue
+    app: production
 spec:
   type: LoadBalancer
   ports:
     - port: 80
       targetPort: 80
-      nodePort: 30001
   selector:
     app: blue

@@ -12,26 +12,22 @@ docker-push:
 	docker push pessniam/greenapp
 
 kubectl-config:
-	aws eks --region us-west-2 update-kubeconfig --name EksCluster-c9qMPZrayphT
-	kubectl config use-context arn:aws:eks:us-west-2:568283627415:cluster/EksCluster-c9qMPZrayphT
+	aws eks --region us-west-2 update-kubeconfig --name EksCluster-gFPNOsJssujO
+	kubectl config use-context arn:aws:eks:us-west-2:568283627415:cluster/EksCluster-gFPNOsJssujO
 	kubectl apply -f ./INFRA/K8s/aws-auth-config.yaml
 
 deploy-blue:
 	kubectl apply -f ./INFRA/K8s/blue-controller.yaml
 	kubectl apply -f ./INFRA/K8s/blue-service.yaml
 	kubectl get pods
-	kubectl describe service
 	kubectl get service
-	kubectl get svc
-	kubectl get rs
+
 	
 deploy-green:
 	kubectl apply -f ./INFRA/K8s/green-controller.yaml
 	kubectl apply -f ./INFRA/K8s/green-service.yaml
 	kubectl get pods
-	kubectl describe service
 	kubectl get service
-	kubectl get svc
-	kubectl get rs
+
 	
 all: lint docker-build docker-push kubectl-config deploy-blue deploy-green

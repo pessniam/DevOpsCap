@@ -1,7 +1,7 @@
 [
     {
     "ParameterKey": "ClusterName",
-    "ParameterValue": "EksCluster-c9qMPZrayphT"
+    "ParameterValue": "EksCluster-gFPNOsJssujO"
     },
     {
         "ParameterKey": "StackName",
