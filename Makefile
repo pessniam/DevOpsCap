@@ -8,7 +8,6 @@ docker-build:
 	docker build -f greenapp/Dockerfile -t pessniam/greenapp .
 
 docker-push:
-	docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 	docker push pessniam/blueapp
 	docker push pessniam/greenapp
 
