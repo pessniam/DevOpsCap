@@ -35,16 +35,8 @@ pipeline {
             }
         
         }
-        stage('Setup Context for Kubectl'){
-            steps {
-                withAWS(region:'us-west-2', credentials:'aws-creds'){
-                 sh "kubectl config set-context arn:aws:eks:us-west-2:568283627415:cluster/EksCluster-hVyio5Aa89V8"
-                }
-            }
         
-        }
-        
-        stage('Deploy to Blue') {
+        stage('Context and Deploy to Blue') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws-creds') {
 					sh 'make deploy-blue'

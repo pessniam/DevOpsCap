@@ -204,7 +204,7 @@ Resources:
             - |
                 #!/bin/bash
                 set -o xtrace
-                /etc/eks/bootstrap.sh EksCluster-hVyio5Aa89V8 ${BootstrapArguments}
+                /etc/eks/bootstrap.sh EksCluster-c9qMPZrayphT ${BootstrapArguments}
                 /opt/aws/bin/cfn-signal --exit-code $? \
                         --stack  ${AWS::StackName} \
                         --resource NodeGroup  \
