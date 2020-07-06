@@ -18,8 +18,8 @@ pipeline {
         }
         stage('Build Docker Images'){
             steps {
-                sh "docker build -f blueapp/Dockerfile -t pessniam/blueapp ."
-                sh "docker build -f greenapp/Dockerfile -t pessniam/greenapp ."
+                sh "sudo docker build -f blueapp/Dockerfile -t pessniam/blueapp ."
+                sh "sudo docker build -f greenapp/Dockerfile -t pessniam/greenapp ."
             
             }
         
@@ -27,9 +27,9 @@ pipeline {
         stage('Push Docker Images to DockerHub'){
             steps {
               withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]){
-               sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-               sh "docker push pessniam/blueapp"
-               sh "docker push pessniam/greenapp"
+               sh "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+               sh "sudo docker push pessniam/blueapp"
+               sh "sudo docker push pessniam/greenapp"
               }
             
             }
