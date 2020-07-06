@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: blue
-  labels:
-   app: blue
+ name: blue
+ labels:
+  app: blue
 spec:
  replicas: 1
  selector:
@@ -15,7 +15,7 @@ spec:
   spec:
    containers:
     - name: blue
-      image: pessinam/blueapp
+      image: pessniam/blueapp
       ports:
-      - name: "http-server"
+      - name: "https-server"
         containerPort: 80

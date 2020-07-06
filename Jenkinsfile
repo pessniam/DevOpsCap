@@ -1,6 +1,5 @@
 pipeline {
 
-
     environment {
         dockerHubCredentials = 'DockerHub'
     }
@@ -9,17 +8,14 @@ pipeline {
     stages {
         stage('Lint the HTML') {
             steps {
-                sh "tidy -q -e ./blueapp/*.html"
-                sh "tidy -q -e ./greenapp/*.html"
-                echo "Linting the HTML"
+                sh 'make lint'
             
             }
         
         }
         stage('Build Docker Images'){
             steps {
-                sh "docker build -f blueapp/Dockerfile -t pessniam/blueapp ."
-                sh "docker build -f greenapp/Dockerfile -t pessniam/greenapp ."
+                sh 'make docker-build'
             
             }
         
@@ -27,16 +23,22 @@ pipeline {
         stage('Push Docker Images to DockerHub'){
             steps {
               withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]){
-               sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-               sh "docker push pessniam/blueapp"
-               sh "docker push pessniam/greenapp"
+               sh 'make docker-push'
               }
             
             }
         
         }
         
-        stage('Context and Deploy to Blue') {
+        stage('Kubectl Config') {
+			steps {
+				withAWS(region:'us-west-2', credentials:'aws-creds') {
+					sh 'make kubectl-config'
+				}
+			}
+		}    
+        
+        stage('Deploy to Blue - Production') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws-creds') {
 					sh 'make deploy-blue'
@@ -44,41 +46,25 @@ pipeline {
 			}
 		}
 		
-		stage('Create Service and Redirect to Blue') {
+		stage('Deploy To Green - Test') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws-creds') {
-					sh 'make service-redirect'
+					sh 'make deploy-green'
 				}
 			}
 		}
 		
 		stage('CTO Approval') {
             steps {
-                input "Ready to redirect traffic to green?"
+                input "Ready to redirect traffic to green/TestEnv for verification before updating Blue/Production?"
             }
         }
 
-		stage('Deploy To Green') {
-			steps {
-				withAWS(region:'us-west-2', credentials:'aws-creds') {
-					sh '''
-						kubectl apply -f ./INFRA/K8s/green-controller.yaml
-					'''
-				}
-			}
-		}
 		
-		stage('Create Service and Redirect to Green') {
-			steps {
-				withAWS(region:'us-west-2', credentials:'aws-creds') {
-					sh '''
-						kubectl apply -f ./INFRA/K8s/green-service.yaml
-					'''
-				}
-			}
-		}
+		
     
     }
+
 
 
 }

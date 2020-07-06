@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: blue-green-loadbalancer
+  name: blue-loadbalancer
   labels:
-    app: blue-green-loadbalancer
+    app: blue
 spec:
   type: LoadBalancer
   ports:
