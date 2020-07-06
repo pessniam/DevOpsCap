@@ -10,6 +10,9 @@ docker-build:
 docker-push:
 	docker push pessniam/blueapp
 	docker push pessniam/greenapp
+	
+docker-image-rm:
+	docker rmi $(docker images -a -q) --force
 
 kubectl-config:
 	aws eks --region us-west-2 update-kubeconfig --name EksCluster-gFPNOsJssujO
@@ -21,7 +24,6 @@ deploy-blue:
 	kubectl apply -f ./INFRA/K8s/blue-service.yaml
 	kubectl get pods
 	kubectl get rc
-	kubectl get deployment
 	kubectl get service
 
 	
@@ -30,7 +32,6 @@ deploy-green:
 	kubectl apply -f ./INFRA/K8s/green-service.yaml
 	kubectl get pods
 	kubectl get rc
-	kubectl get deployments
 	kubectl get service
 	
 blueToGreen:
@@ -38,8 +39,9 @@ blueToGreen:
 	
 clean-out:
 	kubectl delete svc green-loadbalancer
+	kubectl delete rc blue
 	
 
 
 	
-all: lint docker-build docker-push kubectl-config deploy-blue deploy-green blueToGreen clean-out
+all: lint docker-build docker-push docker-image-rm kubectl-config deploy-blue deploy-green blueToGreen clean-out

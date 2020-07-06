@@ -71,7 +71,7 @@ pipeline {
 		
 		stage('CleanOut Approval') {
             steps {
-                input "Now that Blue is updated, do you want clean out, deleting the Green Service and its leftovers, if yes proceed?"
+                input "Now that Blue is updated, do you want clean out, deleting the Green Service and Old Blue Controller?"
             }
         }
         
