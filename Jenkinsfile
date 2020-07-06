@@ -57,9 +57,7 @@ pipeline {
 		stage('Create Service and Redirect to Blue') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws-creds') {
-					sh '''
-						kubectl apply -f ./INFRA/K8s/blue-service.yaml
-					'''
+					sh 'make service-redirect'
 				}
 			}
 		}
