@@ -75,7 +75,7 @@ pipeline {
             }
         }
         
-        stage('Updating Production') {
+        stage('Cleaning') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws-creds') {
 					sh 'make clean-out'
