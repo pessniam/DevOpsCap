@@ -3,8 +3,8 @@ deploy-blue:
 	kubectl config use-context arn:aws:eks:us-west-2:568283627415:cluster/EksCluster-c9qMPZrayphT
 	kubectl apply -f ./INFRA/K8s/aws-auth-config.yaml
 	kubectl apply -f ./INFRA/K8s/blue-controller.yaml
-	get pods
-	get nodes
+	kubectl get pods
+	kubectl get nodes
 	
 service-redirect:
 	kubectl apply -f ./INFRA/K8s/blue-service.yaml
