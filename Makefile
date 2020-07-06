@@ -41,7 +41,5 @@ clean-out:
 	kubectl delete svc green-loadbalancer
 	kubectl delete rc blue
 	
-
-
 	
 all: lint docker-build docker-push docker-image-rm kubectl-config deploy-blue deploy-green blueToGreen clean-out
