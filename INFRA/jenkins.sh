@@ -31,3 +31,5 @@ sudo usermod -a -G docker jenkins
 sudo usermod -a -G docker ubuntu
 
 snap install kubectl --classic
+
+sudo apt-get install -y make
