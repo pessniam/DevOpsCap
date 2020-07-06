@@ -15,7 +15,7 @@ Happy coding!
 
 ---------------------------------
 
-#DevOps Capstone
+# DevOps Capstone
 
 ### The Scope of the Project
 - This will be a blue-green deployment aka parallel deployment in AWS EKS (Kuberentes Service)
