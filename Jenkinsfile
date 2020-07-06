@@ -55,7 +55,7 @@ pipeline {
 			}
 		}
 		
-		stage('CTO Approval') {
+		stage('Production/Person Approval') {
             steps {
                 input "Ready to redirect Blue/Production service traffic to Green app/pods?"
             }
@@ -65,6 +65,20 @@ pipeline {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws-creds') {
 					sh 'make blueToGreen'
+				}
+			}
+		}
+		
+		stage('CleanOut Approval') {
+            steps {
+                input "Now that Blue is updated, do you want clean out, deleting the Green Service and its leftovers, if yes proceed?"
+            }
+        }
+        
+        stage('Updating Production') {
+			steps {
+				withAWS(region:'us-west-2', credentials:'aws-creds') {
+					sh 'make clean-out'
 				}
 			}
 		}

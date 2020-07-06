@@ -20,6 +20,8 @@ deploy-blue:
 	kubectl apply -f ./INFRA/K8s/blue-controller.yaml
 	kubectl apply -f ./INFRA/K8s/blue-service.yaml
 	kubectl get pods
+	kubectl get rc
+	kubectl get deployment
 	kubectl get service
 
 	
@@ -27,10 +29,17 @@ deploy-green:
 	kubectl apply -f ./INFRA/K8s/green-controller.yaml
 	kubectl apply -f ./INFRA/K8s/green-service.yaml
 	kubectl get pods
+	kubectl get rc
+	kubectl get deployments
 	kubectl get service
 	
 blueToGreen:
 	kubectl apply -f ./INFRA/K8s/blue-to-green-service.yaml
+	
+clean-out:
+	kubectl delete svc green-loadbalancer
+	
+
 
 	
-all: lint docker-build docker-push kubectl-config deploy-blue deploy-green blueToGreen
+all: lint docker-build docker-push kubectl-config deploy-blue deploy-green blueToGreen clean-out
